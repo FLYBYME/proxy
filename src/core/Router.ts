@@ -1,6 +1,7 @@
 import { Route } from './Route';
 import { RouteConfig } from '../types/models';
 import * as tls from 'tls';
+import fs from 'fs';
 
 export class Router {
     private routes: Map<string, Route> = new Map();
@@ -44,9 +45,11 @@ export class Router {
         }
 
         try {
+            const key = fs.readFileSync(route.config.ssl.key);
+            const cert = fs.readFileSync(route.config.ssl.cert);
             const ctx = tls.createSecureContext({
-                key: route.config.ssl.key,
-                cert: route.config.ssl.cert
+                key: key,
+                cert: cert
             });
             cb(null, ctx);
         } catch (err: any) {

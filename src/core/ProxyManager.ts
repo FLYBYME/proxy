@@ -124,8 +124,12 @@ export class ProxyManager {
         this.proxy.on('proxyRes', (proxyRes, req, res) => {
             const proxyReq = (req as http.IncomingMessage).proxyRequest;
             if (proxyReq) {
-                // Here you can inject custom response headers defined in RouteConfig
-                // e.g. res.setHeader('X-Proxy-By', 'MyProxy');
+                const route = this.router.getRoute(proxyReq.meta.vHost);
+                req.headers['x-proxy-by'] = 'MyProxy';
+                req.headers['x-proxy-id'] = proxyReq.id;
+                req.headers['x-proxy-route'] = route?.config.vHost;
+                req.headers['x-proxy-strategy'] = route?.config.strategy;
+                req.headers['x-proxy-backends'] = route?.config.backends.length.toString();
             }
         });
     }
