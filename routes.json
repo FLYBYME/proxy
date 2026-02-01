@@ -1,0 +1,17 @@
+{
+    "routes": [
+        {
+            "vHost": "localhost",
+            "strategy": "ROUND_ROBIN",
+            "autoHttps": true,
+            "reqQueueLength": 100,
+            "reqActiveLength": 100,
+            "backends": [
+                {
+                    "hostname": "127.0.0.1",
+                    "port": 8001
+                }
+            ]
+        }
+    ]
+}

@@ -14,7 +14,7 @@ proxy.start();
 
 console.log(`Proxy Manager started on port ${port}${sslPort ? ` and SSL port ${sslPort}` : ''}`);
 
-const routes = JSON.parse(fs.readFileSync('./data/routes.json', 'utf-8')) as Routes;
+const routes = JSON.parse(fs.readFileSync('./routes.json', 'utf-8')) as Routes;
 
 routes.routes.forEach((route) => {
     proxy.router.addRoute(route);
